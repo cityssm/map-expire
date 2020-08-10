@@ -1,64 +1,14 @@
-'use strict';
-
-var Cache = require('./index'),
-	assert = require('assert');
-
-describe('Extended Map Object', function(){
-	it('add/update item', function(done){
-		const cache = new Cache([], 20)	
-		cache.set(5, 5)
-		assert.strict.equal(cache.get(5), 5);
-		cache.set(5, 'five');
-		assert.strict.equal(cache.get(5), 'five');
-		done()
-	})
-
-	it('capacity test', function(done){
-		const cache = new Cache([], 20)	
-		for(var i = 0; i<200; i++){
-			cache.set(`key_${i}`, `value_${i}`);
-		}
-		assert.equal(cache.size, cache.capacity, `it should be ${cache.capacity}`)
-		done()
-	})
-	it('should all data expired', done => {
-		const cache = new Cache([], 20)	
-		for(var i = 0; i<200; i++){
-			cache.set(`key_${i}`, `value_${i}`, 200);
-		}
-		const test = t => {
-			return new Promise ((resolve, reject) => {
-				setTimeout(() => resolve(cache.size), t)
-			})
-		}
-		const jobs = [1, 2, 3, 4].map(t => test(t*100))
-		Promise.all(jobs).then(ts => {
-			assert.ok(ts.includes(0))
-			done()
-		}).catch(err => done(err))
-	})
-})
-
-describe('Event Test', function(){
-	
-	it('save event', done => {
-		const cache = new Cache()	
-		cache.on('save', (key, value)=>{
-			assert.strict.equal(key, '3a')
-			assert.strict.equal(value, 'AAA')
-			done()
-		})
-		cache.set('3a', 'AAA')
-	})
-
-	it('expire event', done => {
-		const cache = new Cache()	
-		cache.on('delete', (key, value)=>{
-			assert.strict.equal(key, 'exp')
-			assert.strict.equal(value, 'EXPIRED')
-			done()
-		})
-		cache.set('exp', 'EXPIRED', 100)
-	})
-
-})
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const index_1 = require("./index");
+const cache = new index_1.Cache();
+cache.set("testKey", "testValue", 5);
+console.log("cache.get(\"testKey\") = " + cache.get("testKey"));
+console.log("Outputting value after two seconds (still there)," +
+    " and after 6 seconds (gone)...");
+setTimeout(() => {
+    console.log("2 sec => cache.get(\"testKey\") = " + cache.get("testKey"));
+}, 2000);
+setTimeout(() => {
+    console.log("6 sec => cache.get(\"testKey\") = " + cache.get("testKey"));
+}, 6000);

@@ -1,56 +1,52 @@
-'use strict';
-
-const EventEmitter = require('events');
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Cache = void 0;
 class Entity {
-	constructor(data, duration){
-		this.data = data
-		this.expire = duration ? Date.now() + duration : false
-	}
-
-	get expired(){
-		return this.expire ? this.expire <= Date.now() : false
-	}
+    constructor(data, expirySeconds) {
+        this.data = data;
+        this.expiryMilliseconds = expirySeconds
+            ? Date.now() + (expirySeconds * 1000)
+            : false;
+    }
+    get expired() {
+        return this.expiryMilliseconds
+            ? this.expiryMilliseconds <= Date.now()
+            : false;
+    }
 }
-
-class Cache extends Map {
-	constructor(values, capacity = 100){
-		super(values)
-		this.events = new EventEmitter()
-		this.capacity = capacity
-	}
-	set(key, value, duration){
-		var entity = new Entity(value, duration)
-		super.set(key, entity)
-		this.events.emit('save', key, value, duration)
-		if(this.size > this.capacity) this.clean()
-		if(duration) setTimeout(key => {
-			const o = super.get(key)
-			if(o && !o.expired) console.log(`${key} is not expired!`, Date.now() - o.expire)
-			if(o && o.expired) this.delete(key); 
-		}, duration, key)
-	}
-
-	get(key){
-		var entity = super.get(key);
-		return entity === undefined || entity.expired ? undefined : entity.data;
-	}
-
-	delete(key){
-		this.events.emit('delete', key, super.get(key).data)
-		super.delete(key)
-	}
-	clean(){
-		var keys = this.keys();
-		while(this.size > this.capacity){
-			var key = keys.next().value;
-			this.delete(key)
-		}
-	}
-
-	on(event, callback){
-		this.events.on(event, callback);
-	}
+class Cache {
+    constructor(capacity = 100) {
+        this.capacity = capacity;
+        this._map = new Map();
+    }
+    set(key, value, expirySeconds) {
+        const entity = new Entity(value, expirySeconds);
+        this._map.set(key, entity);
+        if (this._map.size > this.capacity) {
+            this.clean();
+        }
+        if (entity.expiryMilliseconds) {
+            setTimeout(key => {
+                const o = this._map.get(key);
+                if (o && o.expired) {
+                    this.delete(key);
+                }
+            }, entity.expiryMilliseconds, key);
+        }
+    }
+    get(key) {
+        const entity = this._map.get(key);
+        return entity === undefined || entity.expired ? undefined : entity.data;
+    }
+    delete(key) {
+        this._map.delete(key);
+    }
+    clean() {
+        var keys = this._map.keys();
+        while (this._map.size > this.capacity) {
+            const key = keys.next().value;
+            this.delete(key);
+        }
+    }
 }
-
-module.exports = Cache;
+exports.Cache = Cache;

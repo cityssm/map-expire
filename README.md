@@ -1,37 +1,33 @@
 # map-expire
 
-Extended Map object with capacity and expire features
+A JavaScript map with entries that expire after a given number of seconds.
 
-## install
+Based on the work in
+[cavitkeskin/map-expire](https://github.com/cavitkeskin/map-expire).
 
+## Installation
 
-```sh
-npm install --save map-expire
+```bash
+npm install @cityssm/map-expire
 ```
 
-## usage
+## Usage
 
 ```javascript
+import { Cache } from "@cityssm/map-expire";
+const cache = new Cache();
 
-const Cache = require('map-expire');
-const new Cache()
+cache.set(key, value, expirySeconds);
 
-cache.set(key, value, duration)
-
-var value = cache.get(key)
-
+const value = cache.get(key);
 ```
 
-## API
+## Methods
 
-- set(key, value, duration)
-	if duration (second) is falsy or not given this item will never be expired.
+`set(key, value, expirySeconds)`
 
-- get(key)
-	return undefined if not exists or expired
+-   If `expirySeconds` is falsy or not given, the value will never be expired.
 
-## test
+`get(key)`
 
-```sh
-npm test
-```
+-   Returns undefined if not exists or expired.
