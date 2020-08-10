@@ -1,5 +1,7 @@
 # map-expire
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cf6937317a1544c08dcddbf7e5a1a944)](https://app.codacy.com/gh/cityssm/map-expire?utm_source=github.com&utm_medium=referral&utm_content=cityssm/map-expire&utm_campaign=Badge_Grade_Dashboard)
+
 A JavaScript map with entries that expire after a given number of seconds.
 
 Based on the work in
