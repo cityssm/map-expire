@@ -1,6 +1,7 @@
 declare class Entity<V> {
     data: V;
     expiryMilliseconds: number | false;
+    expiryDateMillis: number;
     constructor(data: V, expirySeconds: number);
     get expired(): boolean;
 }

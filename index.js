@@ -4,13 +4,14 @@ exports.Cache = void 0;
 class Entity {
     constructor(data, expirySeconds) {
         this.data = data;
-        this.expiryMilliseconds = expirySeconds
-            ? Date.now() + (expirySeconds * 1000)
-            : false;
+        if (expirySeconds) {
+            this.expiryMilliseconds = (expirySeconds * 1000);
+            this.expiryDateMillis = Date.now() + this.expiryMilliseconds;
+        }
     }
     get expired() {
         return this.expiryMilliseconds
-            ? this.expiryMilliseconds <= Date.now()
+            ? this.expiryDateMillis <= Date.now()
             : false;
     }
 }
@@ -28,7 +29,7 @@ class Cache {
         if (entity.expiryMilliseconds) {
             setTimeout(key => {
                 const o = this._map.get(key);
-                if (o && o.expired) {
+                if (o === null || o === void 0 ? void 0 : o.expired) {
                     this.delete(key);
                 }
             }, entity.expiryMilliseconds, key);
