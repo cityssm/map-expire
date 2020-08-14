@@ -1,5 +1,6 @@
 # map-expire
 
+[![npm](https://badgen.net/npm/v/@cityssm/map-expire)](https://www.npmjs.com/package/@cityssm/map-expire)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cf6937317a1544c08dcddbf7e5a1a944)](https://app.codacy.com/gh/cityssm/map-expire?utm_source=github.com&utm_medium=referral&utm_content=cityssm/map-expire&utm_campaign=Badge_Grade_Dashboard)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cbc3e8116e8049ceb7b0/maintainability)](https://codeclimate.com/github/cityssm/map-expire/maintainability)
 
