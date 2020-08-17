@@ -13,5 +13,6 @@ export declare class Cache<K, V> {
     get(key: K): V;
     delete(key: K): void;
     clean(): void;
+    size(): number;
 }
 export {};

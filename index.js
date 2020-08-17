@@ -49,5 +49,8 @@ class Cache {
             this.delete(key);
         }
     }
+    size() {
+        return this._map.size;
+    }
 }
 exports.Cache = Cache;

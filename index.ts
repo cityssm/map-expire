@@ -68,4 +68,8 @@ export class Cache<K, V> {
       this.delete(key);
     }
   }
+
+  size() {
+    return this._map.size;
+  }
 }
