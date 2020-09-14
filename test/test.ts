@@ -5,35 +5,56 @@ describe("Cache()", () => {
 
   it("New cache has size zero", () => {
     const cache = new Cache();
-    assert.equal(cache.size(), 0);
+    assert.strictEqual(cache.size(), 0);
   });
 
-  it("Cache cannot exceed capacity", () => {
+  it("Cache cannot exceed set capacity", () => {
     const cache = new Cache(10);
     for (let keyIndex = 0; keyIndex < 20; keyIndex += 1) {
       cache.set("key" + keyIndex.toString(), keyIndex, 3);
     }
-    assert.equal(cache.size(), 10);
+    assert.strictEqual(cache.size(), 10);
   });
 
-  const expiryCheck = new Cache();
-  expiryCheck.set("testKey", "testValue", 3);
+  describe("Cache expires a value after three seconds", () => {
 
-  it("Cache contains testKey", () => {
-    assert.equal(expiryCheck.get("testKey"), "testValue");
+    const expiryCheck = new Cache();
+    expiryCheck.set("testKey", "testValue", 3);
+
+    it("Cache contains testKey immediately after insert", () => {
+      assert.strictEqual(expiryCheck.get("testKey"), "testValue");
+    });
+
+    it("After 1 seconds, cache still contains testKey", (done) => {
+      setTimeout(() => {
+        assert.strictEqual(expiryCheck.get("testKey"), "testValue");
+        done();
+      }, 1000);
+    });
+
+    it("After 3 seconds, cache no longer contains testKey", (done) => {
+      setTimeout(() => {
+        assert.strictEqual(expiryCheck.get("testKey"), undefined);
+        done();
+      }, 3000);
+    });
+
   });
 
-  it("After 1 seconds, cache still contains testKey", (done) => {
-    setTimeout(() => {
-      assert.equal(expiryCheck.get("testKey"), "testValue");
-      done();
-    }, 1000);
-  });
+  describe("Cache contains a value \"indefinitely\" when the expirySeconds is zero", () => {
 
-  it("After 3 seconds, cache no longer contains testKey", (done) => {
-    setTimeout(() => {
-      assert.equal(expiryCheck.get("testKey"), null);
-      done();
-    }, 3000);
+    const expiryCheck = new Cache();
+    expiryCheck.set("testKey", "testValue", 0);
+
+    for (let sec = 0; sec <= 5; sec += 1) {
+
+      it("After " + sec.toString() + " seconds, cache still contains testKey", (done) => {
+
+        setTimeout(() => {
+          assert.strictEqual(expiryCheck.get("testKey"), "testValue");
+          done();
+        }, sec * 1000);
+      });
+    }
   });
 });

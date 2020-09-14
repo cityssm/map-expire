@@ -4,9 +4,12 @@ exports.Cache = void 0;
 class Entity {
     constructor(data, expirySeconds) {
         this.data = data;
-        if (expirySeconds) {
+        if (expirySeconds > 0) {
             this.expiryMilliseconds = (expirySeconds * 1000);
             this.expiryDateMillis = Date.now() + this.expiryMilliseconds;
+        }
+        else {
+            this.expiryMilliseconds = false;
         }
     }
     get expired() {
