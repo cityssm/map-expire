@@ -1,10 +1,6 @@
 # map-expire
 
-[![npm](https://badgen.net/npm/v/@cityssm/map-expire)](https://www.npmjs.com/package/@cityssm/map-expire)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cf6937317a1544c08dcddbf7e5a1a944)](https://app.codacy.com/gh/cityssm/map-expire?utm_source=github.com&utm_medium=referral&utm_content=cityssm/map-expire&utm_campaign=Badge_Grade_Dashboard)
-[![Maintainability](https://api.codeclimate.com/v1/badges/cbc3e8116e8049ceb7b0/maintainability)](https://codeclimate.com/github/cityssm/map-expire/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/cbc3e8116e8049ceb7b0/test_coverage)](https://codeclimate.com/github/cityssm/map-expire/test_coverage)
-[![Build Status](https://travis-ci.com/cityssm/map-expire.svg?branch=master)](https://travis-ci.com/cityssm/map-expire)
+[![npm](https://badgen.net/npm/v/@cityssm/map-expire)](https://www.npmjs.com/package/@cityssm/map-expire) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cf6937317a1544c08dcddbf7e5a1a944)](https://app.codacy.com/gh/cityssm/map-expire?utm_source=github.com&utm_medium=referral&utm_content=cityssm/map-expire&utm_campaign=Badge_Grade_Dashboard) [![Maintainability](https://api.codeclimate.com/v1/badges/cbc3e8116e8049ceb7b0/maintainability)](https://codeclimate.com/github/cityssm/map-expire/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/cbc3e8116e8049ceb7b0/test_coverage)](https://codeclimate.com/github/cityssm/map-expire/test_coverage) [![Build Status](https://travis-ci.com/cityssm/map-expire.svg?branch=master)](https://travis-ci.com/cityssm/map-expire)
 
 A JavaScript map with entries that expire after a given number of seconds.
 
