@@ -1,11 +1,11 @@
 {
   "name": "@cityssm/map-expire",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A JavaScript map with entries that expire after a given number of seconds.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 10000",
-    "coverage": "nyc npm run test"
+    "test": "snyk test && mocha --timeout 10000",
+    "coverage": "nyc mocha --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "mocha": "^8.2.0",
     "nyc": "^15.1.0",
+    "snyk": "^1.420.0",
     "typescript": "^4.0.3"
   },
   "dependencies": {}
