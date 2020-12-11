@@ -16,7 +16,7 @@ describe("Cache()", () => {
     });
     describe("Cache expires a value after three seconds", () => {
         const expiryCheck = new index_1.Cache();
-        expiryCheck.set("testKey", "testValue", 3);
+        expiryCheck.set("testKey", "testValue", 3000);
         it("Cache contains testKey immediately after insert", () => {
             assert.strictEqual(expiryCheck.get("testKey"), "testValue");
         });
@@ -36,12 +36,12 @@ describe("Cache()", () => {
     describe("Cache contains a value \"indefinitely\" when the expirySeconds is zero", () => {
         const expiryCheck = new index_1.Cache();
         expiryCheck.set("testKey", "testValue", 0);
-        for (let sec = 0; sec <= 5; sec += 1) {
-            it("After " + sec.toString() + " seconds, cache still contains testKey", (done) => {
+        for (let milli = 0; milli <= 5000; milli += 1000) {
+            it("After " + (milli / 1000).toString() + " seconds, cache still contains testKey", (done) => {
                 setTimeout(() => {
                     assert.strictEqual(expiryCheck.get("testKey"), "testValue");
                     done();
-                }, sec * 1000);
+                }, milli);
             });
         }
     });

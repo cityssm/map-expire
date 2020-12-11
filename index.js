@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cache = void 0;
 class Entity {
-    constructor(data, expirySeconds) {
+    constructor(data, expiryMillis) {
         this.data = data;
-        if (expirySeconds > 0) {
-            this.expiryMilliseconds = (expirySeconds * 1000);
+        if (expiryMillis > 0) {
+            this.expiryMilliseconds = expiryMillis;
             this.expiryDateMillis = Date.now() + this.expiryMilliseconds;
         }
         else {
@@ -23,8 +23,8 @@ class Cache {
         this.capacity = capacity;
         this._map = new Map();
     }
-    set(key, value, expirySeconds) {
-        const entity = new Entity(value, expirySeconds);
+    set(key, value, expiryMillis) {
+        const entity = new Entity(value, expiryMillis);
         this._map.set(key, entity);
         if (this._map.size > this.capacity) {
             this.clean();

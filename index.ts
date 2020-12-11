@@ -3,11 +3,11 @@ class Entity<V> {
   expiryMilliseconds: number | false;
   expiryDateMillis: number;
 
-  constructor(data: V, expirySeconds: number) {
+  constructor(data: V, expiryMillis: number) {
     this.data = data;
 
-    if (expirySeconds > 0) {
-      this.expiryMilliseconds = (expirySeconds * 1000);
+    if (expiryMillis > 0) {
+      this.expiryMilliseconds = expiryMillis;
       this.expiryDateMillis = Date.now() + this.expiryMilliseconds;
     } else {
       this.expiryMilliseconds = false;
@@ -31,9 +31,9 @@ export class Cache<K, V> {
     this._map = new Map();
   }
 
-  set(key: K, value: V, expirySeconds: number) {
+  set(key: K, value: V, expiryMillis: number) {
 
-    const entity = new Entity(value, expirySeconds);
+    const entity = new Entity(value, expiryMillis);
 
     this._map.set(key, entity);
 
